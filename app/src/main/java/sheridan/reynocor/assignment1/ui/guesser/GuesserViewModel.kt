@@ -1,4 +1,7 @@
 package sheridan.reynocor.assignment1.ui.guesser
 
-class GuesserViewModel {
+import androidx.lifecycle.ViewModel
+
+class GuesserViewModel: ViewModel() {
+
 }

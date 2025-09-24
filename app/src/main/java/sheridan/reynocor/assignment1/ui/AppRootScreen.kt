@@ -45,7 +45,7 @@ fun AppRootScreen(){
         innerPadding ->
         GuesserBody(
             viewModel = viewModel(),
-            modifer = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding)
         )
     }
 
