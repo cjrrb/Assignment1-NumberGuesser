@@ -2,4 +2,7 @@
     <string name="app_name">Number Guesser</string>
     <string name="about_guesser">This is a number guessing game.</string>
     <string name="ok">OK</string>
+    <string name ="play_again">Play Again!</string>
+    <string name ="correct">Correct!</string>
+
 </resources>

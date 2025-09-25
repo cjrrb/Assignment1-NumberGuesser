@@ -22,6 +22,7 @@ import sheridan.reynocor.assignment1.R
 import sheridan.reynocor.assignment1.ui.guesser.GuesserBody
 import sheridan.reynocor.assignment1.ui.guesser.GuesserTopBar
 import androidx.lifecycle.viewmodel.compose.viewModel
+import sheridan.reynocor.assignment1.ui.guesser.GuesserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,7 +30,7 @@ fun AppRootScreen(){
     var showAboutDialog: Boolean by rememberSaveable {
         mutableStateOf(false)
     }
-
+    val guesserViewModel: GuesserViewModel = viewModel()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         topBar = {
@@ -44,8 +45,8 @@ fun AppRootScreen(){
     ) {
         innerPadding ->
         GuesserBody(
-            viewModel = viewModel(),
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            viewModel = guesserViewModel
         )
     }
 

@@ -36,7 +36,7 @@ class GuesserViewModel: ViewModel() {
             guess == randomNumber -> {
                 _uiState.update { currentState -> currentState.copy(
                     guessAttempts = currentAttempts,
-                    message = "Correct! You guessed the number in $currentAttempts attempts",
+                    message = "You guessed the number in $currentAttempts attempts",
                     showDialog = true,
                     isGuessCorrect = true
                     )
