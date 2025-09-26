@@ -4,5 +4,5 @@
     <string name="ok">OK</string>
     <string name ="play_again">Play Again!</string>
     <string name ="correct">Correct!</string>
-
+    <string name="close">Close</string>
 </resources>

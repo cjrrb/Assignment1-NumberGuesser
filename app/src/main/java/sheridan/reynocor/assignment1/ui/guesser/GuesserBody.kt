@@ -2,8 +2,10 @@ package sheridan.reynocor.assignment1.ui.guesser
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -24,20 +26,23 @@ import sheridan.reynocor.assignment1.R
 
 @Composable
 fun GuesserBody(
-    viewModel: GuesserViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: GuesserViewModel
 ) {
     val uiState: GuesserUIState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(32.dp),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Enter a number from 1-10")
+        Text(
+            text = "Enter a number from 1-10",
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onBackground
+        )
 
         OutlinedTextField(
             value = uiState.userGuess,
@@ -56,41 +61,48 @@ fun GuesserBody(
         }
 
         if (uiState.guessAttempts > 0 && !uiState.isGuessCorrect) {
-            Text(text = "Attempts: ${uiState.guessAttempts}")
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = "Attempts: ${uiState.guessAttempts}",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground)
         }
 
-        if (uiState.showDialog && uiState.message !== null) {
+        if (uiState.showDialog) {
             AlertDialog(
                 onDismissRequest = {
                     if (!uiState.isGuessCorrect) {
                         viewModel.hideDialog()
                     }
                 },
-
                 title = {
-                    Text(text = if (uiState.isGuessCorrect) stringResource(R.string.correct) else stringResource(R.string.play_again))
+                    Text(text = uiState.dialogTitle!!)
                 },
                 text = {
-                    Text(text = uiState.message!!)
+                    Text(text = uiState.dialogDescription!!)
                 },
                 confirmButton = {
-                    if (uiState.isGuessCorrect) {
-                        TextButton(onClick = { viewModel.playAgain() }) {
-                            Text(text = "Play Again")
+                    val buttonText =
+                        if (uiState.isGuessCorrect) {
+                            stringResource(R.string.play_again)
                         }
-                    } else {
-                        TextButton(onClick = { viewModel.hideDialog() }) {
-                            Text(text = "Close")
+                        else {
+                            stringResource(R.string.close)
                         }
+                    TextButton(
+                        onClick = {
+                            if (uiState.isGuessCorrect) {
+                                viewModel.playAgain()
+                            }
+                            else {
+                                viewModel.hideDialog()
+                            }
+                        },
+                    ) {
+                        Text(buttonText)
                     }
                 },
-                dismissButton = {
-                    if (uiState.isGuessCorrect) {
-                        null
-                    } else {
-                        null
-                    }
-                }
+                dismissButton = null
             )
         }
     }

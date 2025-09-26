@@ -7,6 +7,7 @@ data class GuesserUIState(
     val userGuess: String = "",
     val isGuessCorrect: Boolean = false,
     val guessAttempts: Int = 0,
-    val message: String? = "",
+    val dialogDescription: String? = "",
+    val dialogTitle: String? = "",
     val showDialog: Boolean = false
 )
